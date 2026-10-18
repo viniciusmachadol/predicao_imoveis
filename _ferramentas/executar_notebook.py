@@ -1,4 +1,7 @@
-"""Executa o notebook do início ao fim (ambiente limpo) e grava as saídas no próprio arquivo."""
+"""Executa o notebook do início ao fim (ambiente limpo) e grava as saídas no próprio arquivo.
+
+Uso: python executar_notebook.py [nome_do_notebook.ipynb]  (padrão: o notebook da etapa 1)
+"""
 import os
 import sys
 
@@ -6,12 +9,13 @@ import nbformat
 from nbclient import NotebookClient
 
 PASTA_PROJETO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ARQUIVO = os.path.join(PASTA_PROJETO, "Predicao_Precos_Imoveis_Vinicius_Machado.ipynb")
+NOME = sys.argv[1] if len(sys.argv) > 1 else "Predicao_Precos_Imoveis_Vinicius_Machado.ipynb"
+ARQUIVO = os.path.join(PASTA_PROJETO, NOME)
 
 nb = nbformat.read(ARQUIVO, as_version=4)
 try:
     # Executa com a pasta do projeto como diretório de trabalho (onde o CSV final é gravado)
-    NotebookClient(nb, timeout=900, kernel_name="python3",
+    NotebookClient(nb, timeout=3600, kernel_name="python3",
                    resources={"metadata": {"path": PASTA_PROJETO}}).execute()
 finally:
     nbformat.write(nb, ARQUIVO)

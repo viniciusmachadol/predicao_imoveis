@@ -1,2 +1,4 @@
 __pycache__/
 .ipynb_checkpoints/
+# Coletas extras de novas execuções (a coleta oficial é quintoandar_rio_scraping_20261018.csv)
+quintoandar_rio_scraping_*_*.csv
